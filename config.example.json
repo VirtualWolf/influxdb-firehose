@@ -1,0 +1,8 @@
+{
+    "token": "<InfluxDB token>",
+    "influxDbUrl": "http://localhost:8086",
+    "organisation": "Acme",
+    "outdoor": "http://outdoor:3000/rest/outdoor",
+    "indoor": "http://indoor:3000/rest/indoor",
+    "power": "https://powerwall"
+}
