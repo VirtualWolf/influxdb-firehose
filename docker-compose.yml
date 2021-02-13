@@ -1,7 +1,32 @@
-version: '3.3'
+version: '3'
 services:
   app:
     image: virtualwolf/influxdb-firehose:latest
     restart: unless-stopped
     volumes:
       - ./config.json:/opt/service/config.json
+    depends_on:
+      - influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana:/var/lib/grafana
+    depends_on:
+      - influxdb
+
+  influxdb:
+    image: quay.io/influxdb/influxdb:v2.0.2
+    restart: unless-stopped
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb:/root/.influxdbv2
+    command: ['--reporting-disabled']
+
+volumes:
+  influxdb:
+  grafana:

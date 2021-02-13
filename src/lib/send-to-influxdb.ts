@@ -33,7 +33,7 @@ export async function sendToInfluxDb(data: Data) {
             console.log('Received status', result.status);
         }
     } catch (err) {
-        console.error(err);
+        console.error(err.message);
     }
 }
 
