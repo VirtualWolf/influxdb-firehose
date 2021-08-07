@@ -13,7 +13,7 @@ interface Data {
     bucket: keyof typeof Bucket;
     tags?: ArrayOfObjects[];
     fields: ArrayOfObjects[];
-    timestamp: number;
+    timestamp?: number;
 }
 
 export async function sendToInfluxDb(data: Data) {
@@ -38,13 +38,17 @@ export async function sendToInfluxDb(data: Data) {
 }
 
 function generateLineProtocol(data: Data) {
+    const timestamp = data.timestamp
+        ? data.timestamp
+        : Date.now();
+
     const tags = data.tags
         ? ',' + concatenateEntries(data.tags)
         : '';
 
     const fields = concatenateEntries(data.fields);
 
-    return `${data.bucket}${tags} ${fields} ${data.timestamp}`;
+    return `${data.bucket}${tags} ${fields} ${timestamp }`;
 }
 
 function concatenateEntries(array: ArrayOfObjects[]) {

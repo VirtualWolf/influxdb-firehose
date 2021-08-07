@@ -2,8 +2,9 @@
     "token": "<InfluxDB token>",
     "influxDbUrl": "http://localhost:8086",
     "organisation": "Acme",
-    "outdoor": "http://outdoor:3000/rest/outdoor",
-    "indoor": "http://indoor:3000/rest/indoor",
+    "outdoor": "http://outdoor",
+    "indoor": "http://indoor",
+    "airQuality": "http://air-quality",
     "power": "https://powerwall",
     "email": "user@example.com",
     "password": "<local-powerwall-api-password>"
