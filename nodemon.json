@@ -1,0 +1,7 @@
+{
+    "exec": "./node_modules/.bin/ts-node --files",
+    "watch": [
+        "src/**/*.ts",
+        "config.json"
+    ]
+}

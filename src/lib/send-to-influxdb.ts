@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { log } from '../log';
 const config = require('../../config.json');
 
 export enum Bucket {
@@ -20,20 +21,16 @@ export async function sendToInfluxDb(data: Data) {
     try {
         const lineProtocol = generateLineProtocol(data);
 
-        if (process.env.DEBUG) {
-            console.log(lineProtocol);
-        }
+        log('Sending line protocol: ' + lineProtocol, 'DEBUG');
 
         const result = await request.post(`${config.influxDbUrl}/api/v2/write?org=${config.organisation}&bucket=${data.bucket}&precision=ms`)
             .set('Authorization', `Token ${config.token}`)
             .set('Content-Type', 'text/plain')
             .send(lineProtocol);
 
-        if (process.env.DEBUG) {
-            console.log('Received status', result.status);
-        }
-    } catch (err) {
-        console.error(err.message);
+        log(`Received status ${result.status} from InfluxDB`, 'DEBUG');
+    } catch (err: any) {
+        log('Error sending data to InfluxDB: ' + err.message, 'ERROR');
     }
 }
 

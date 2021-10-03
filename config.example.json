@@ -1,11 +1,12 @@
 {
-    "token": "<InfluxDB token>",
+    "token": "<influxdb-token>",
     "influxDbUrl": "http://localhost:8086",
-    "organisation": "Acme",
-    "outdoor": "http://outdoor",
-    "indoor": "http://indoor",
-    "airQuality": "http://air-quality",
-    "power": "https://powerwall",
-    "email": "user@example.com",
-    "password": "<local-powerwall-api-password>"
+    "organisation": "<organisation>",
+    "brokerAddress": "<mqtt-broker-address>",
+    "topics": {
+        "airquality": "home/outdoor/airquality",
+        "outdoor": "home/outdoor/weather",
+        "indoor": "home/indoor/weather",
+        "power": "home/power"
+    }
 }
