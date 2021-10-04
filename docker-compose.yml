@@ -16,6 +16,7 @@ services:
       - 3000:3000
     volumes:
       - grafana:/var/lib/grafana
+      - ./config/grafana.ini:/etc/grafana/grafana.ini
     depends_on:
       - influxdb
 
