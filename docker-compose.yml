@@ -10,7 +10,7 @@ services:
       - influxdb
 
   grafana:
-    image: grafana/grafana:8.1.0-ubuntu
+    image: grafana/grafana:8.2.0-ubuntu
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -21,7 +21,7 @@ services:
       - influxdb
 
   influxdb:
-    image: influxdb:2.0.7
+    image: influxdb:2.0.8
     restart: unless-stopped
     ports:
       - 8086:8086
