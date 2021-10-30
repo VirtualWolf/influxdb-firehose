@@ -21,6 +21,8 @@ Create a file called `config.json` at the root of the repository with the follow
     "influxDbUrl": "http://localhost:8086",
     "organisation": "<InfluxDB organisation>",
     "brokerAddress": "<MQTT broker address>",
+    "clientId": "<MQTT clientId, optional, defaults to 'influxdb-firehose'>",
+    "clean": "<create a persistent connection, optional, boolean, default is false>",
     "topics": {
         "airquality": "<MQTT topic to subscribe to for air quality readings>",
         "outdoor": "<MQTT topic to subscribe to for outdoor temperature/humidity readings>",

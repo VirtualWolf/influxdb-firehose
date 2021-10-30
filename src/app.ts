@@ -8,8 +8,8 @@ const client = connect({
         host: config.brokerAddress,
         port: config.brokerPort || 1883,
     }],
-    clientId: 'influxdb-firehose',
-    clean: false,
+    clientId: config.clientId || 'influxdb-firehose',
+    clean: config.clean || false,
 });
 
 client.subscribe(Object.values(config.topics), {qos: 1});

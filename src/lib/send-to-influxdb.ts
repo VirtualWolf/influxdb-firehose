@@ -1,3 +1,4 @@
+import { setTimeout } from 'timers/promises';
 import request from 'superagent';
 import { log } from '../log';
 const config = require('../../config.json');
@@ -31,6 +32,16 @@ export async function sendToInfluxDb(data: Data) {
         log(`Received status ${result.status} from InfluxDB`, 'DEBUG');
     } catch (err: any) {
         log('Error sending data to InfluxDB: ' + err.message, 'ERROR');
+
+        // Wait 30 seconds then try again. This is necessary because this
+        // application starts up significantly quicker than InfluxDB does
+        // so it'll receive a bunch of messages from MQTT which it'll
+        // fire off to InfluxDB, but InfluxDB isn't up yet so they all
+        // just end up lost.
+        await setTimeout(30000);
+        log(`Trying to re-send data after 30 seconds...`, 'DEBUG');
+
+        await sendToInfluxDb(data);
     }
 }
 
