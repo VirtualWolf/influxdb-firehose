@@ -4,9 +4,16 @@
     "organisation": "<organisation>",
     "brokerAddress": "<mqtt-broker-address>",
     "topics": {
-        "airquality": "home/outdoor/airquality",
-        "outdoor": "home/outdoor/weather",
-        "indoor": "home/indoor/weather",
-        "power": "home/power"
+        "weather": [
+            "home/outdoor/weather",
+            "home/indoor/weather",
+            "home/office/weather"
+        ],
+        "airquality": [
+            "home/outdoor/airquality"
+        ],
+        "power": [
+            "home/power"
+        ]
     }
 }

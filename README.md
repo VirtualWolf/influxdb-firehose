@@ -24,10 +24,16 @@ Create a file called `config.json` at the root of the repository with the follow
     "clientId": "<MQTT clientId, optional, defaults to 'influxdb-firehose'>",
     "clean": "<create a persistent connection, optional, boolean, default is false>",
     "topics": {
-        "airquality": "<MQTT topic to subscribe to for air quality readings>",
-        "outdoor": "<MQTT topic to subscribe to for outdoor temperature/humidity readings>",
-        "indoor": "<MQTT topic to subscribe to for indoor temperature/humidity readings>",
-        "power": "<MQTT topic to subscribe to for power usage readings>"
+        "weather": [
+            "home/outdoor/weather",
+            "home/indoor/weather",
+        ],
+        "airquality": [
+            "home/outdoor/airquality"
+        ],
+        "power": [
+            "home/power"
+        ]
     }
 }
 ```

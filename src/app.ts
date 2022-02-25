@@ -12,25 +12,32 @@ const client = connect({
     clean: config.clean || false,
 });
 
-client.subscribe(Object.values(config.topics), {qos: 1});
+const topics: string[] = [];
+
+Object.keys(config.topics).forEach((type: string) => {
+    Object.values(config.topics[type]).forEach((topic: any) => topics.push(topic));
+});
+
+client.subscribe(topics, {qos: 1});
 
 client.on('message', async (topic, message) => {
     log(`Received message on ${topic}: ${message}`, 'DEBUG');
 
     const json = JSON.parse(message.toString());
 
-    if (topic === config.topics.outdoor || topic === config.topics.indoor) {
-        const location = Object.keys(config.topics).find(key => config.topics[key] === topic);
+    if (config.topics.weather.includes(topic)) {
+        // Weather topics end in the form "/$LOCATION/weather"
+        const location = topic.split('/').slice(-2, -1).join();
 
-        await sendWeatherData(location!, json);
+        await sendWeatherData(location, json);
     }
 
-    if (topic === config.topics.power) {
-        await sendPowerData(json);
+    if (config.topics.power.includes(topic)) {
+        // await sendPowerData(json);
     }
 
-    if (topic === config.topics.airquality) {
-        await sendAirQualityData(json);
+    if (config.topics.airquality.includes(topic)) {
+        // await sendAirQualityData(json);
     }
 })
 
