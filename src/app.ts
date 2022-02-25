@@ -33,11 +33,11 @@ client.on('message', async (topic, message) => {
     }
 
     if (config.topics.power.includes(topic)) {
-        // await sendPowerData(json);
+        await sendPowerData(json);
     }
 
     if (config.topics.airquality.includes(topic)) {
-        // await sendAirQualityData(json);
+        await sendAirQualityData(json);
     }
 })
 
