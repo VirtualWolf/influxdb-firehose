@@ -1,14 +1,5 @@
 version: '3'
 services:
-  app:
-    image: virtualwolf/influxdb-firehose:latest
-    build: .
-    restart: unless-stopped
-    volumes:
-      - ./config.json:/opt/service/config.json
-    depends_on:
-      - influxdb
-
   grafana:
     image: grafana/grafana:8.4.2-ubuntu
     restart: unless-stopped
@@ -20,6 +11,17 @@ services:
     depends_on:
       - influxdb
 
+  telegraf:
+    image: telegraf:1.23
+    restart: unless-stopped
+    volumes:
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
+      - ./config/telegraf.d:/etc/telegraf/telegraf.d
+    command: "--config-directory /etc/telegraf/telegraf.d"
+    env_file: .env
+    depends_on:
+      - influxdb
+
   influxdb:
     image: influxdb:2.1.1
     restart: unless-stopped
@@ -28,6 +30,11 @@ services:
     volumes:
       - influxdb:/var/lib/influxdb2
     command: ['--reporting-disabled']
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8086"]
+        interval: 5s
+        timeout: 1s
+        retries: 5
 
 volumes:
   influxdb:
