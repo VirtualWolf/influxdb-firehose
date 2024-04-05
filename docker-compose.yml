@@ -1,7 +1,7 @@
 version: '3'
 services:
   grafana:
-    image: grafana/grafana:10.1.9-ubuntu
+    image: grafana/grafana:8.4.2-ubuntu
     restart: unless-stopped
     ports:
       - 3000:3000
