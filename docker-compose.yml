@@ -23,7 +23,7 @@ services:
       - influxdb
 
   influxdb:
-    image: influxdb:2.1.1
+    image: influxdb:2.6.0
     restart: unless-stopped
     ports:
       - 8086:8086
